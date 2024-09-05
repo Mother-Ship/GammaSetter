@@ -66,6 +66,8 @@ class Program
 
             while (webSocket.State == WebSocketState.Open)
             {
+                double gamma = 1;
+
                 WebSocketReceiveResult result;
                 do
                 {
@@ -83,15 +85,18 @@ class Program
 
                 arValue = Math.Min(Math.Max(arValue, 8f), 11f);
 
-                double mappedValue = MapValue(arValue);
+                var tempGamma = MapValue(arValue);
+                if(tempGamma != gamma)
+                {
+                    gamma = tempGamma;
+                    SetGamma(gamma);
+                    Console.WriteLine($"Received AR value: {arValue}. Adjusted gamma to: {gamma}");
+                }
+               
 
-                // Set gamma based on AR value
-                SetGamma(mappedValue);
-
-                Console.WriteLine($"Received AR value: {arValue}. Adjusted gamma to: {mappedValue}");
+            
             }
         }
-        SetGamma(1);
     }
     static double MapValue(double input)
     {
@@ -109,8 +114,8 @@ class Program
         }
         else
         {
-            // 如果输入大于9，每增加1，输出减少0.05，但最小不能小于0.3
-            output = 1 - (input - 9) * 0.05;
+            // 如果输入大于9，每增加1，输出减少0.3，但最小不能小于0.3
+            output = 1 - (input - 9) * 0.33;
             if (output < 0.3)
             {
                 output = 0.3;
