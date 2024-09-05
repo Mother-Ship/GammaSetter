@@ -1,1 +1,4 @@
 # GammaSetter
+
+根据tosu推送的当前osu玩的图的AR来修改gamma
+AR9时是默认gamma AR高了自动加低了自动减
