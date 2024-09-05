@@ -63,10 +63,10 @@ class Program
             byte[] buffer = new byte[1024 * 4];
             StringBuilder completeMessage = new StringBuilder();
             ArraySegment<byte> segment = new ArraySegment<byte>(buffer);
-
+            double gamma = 1;
             while (webSocket.State == WebSocketState.Open)
             {
-                double gamma = 1;
+              
 
                 WebSocketReceiveResult result;
                 do
